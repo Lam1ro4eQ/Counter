@@ -1,0 +1,63 @@
+.app {
+    text-align: center;
+}
+
+.monitor {
+    width: 450px;
+    height: 300px;
+    border: solid 5px deepskyblue;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #61dafb;
+    height: 200px;
+    font-size: 55px;
+    color: white;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.buttonsCount {
+    border: solid 4px deepskyblue;
+    border-radius: 10px;
+    margin: 10px;
+    height: 63px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.redCounter {
+    color: red;
+    font-size: 90px;
+}
+
+.whiteCounter {
+    color: white;
+
+}
+
+.appHeader {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonCount {
+    background-color: #61dafb;
+    border: none;
+    border-radius: 10px;
+    width: 135px;
+    height: 50px;
+    font-size: 40px;
+}
