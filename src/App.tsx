@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import style from './App.module.css'
 import {ButtonInc} from "./ButtonInc";
@@ -15,6 +15,27 @@ function App() {
     let ResetCount = () => {
         setCount(0)
     }
+
+    useEffect( () => {
+        setToLocalStorageHandler()
+    },[count])
+
+    useEffect( () => {
+        getFromLocalStorageHandler()
+    },[])
+
+    const setToLocalStorageHandler = () => {
+        localStorage.setItem('counterValue', JSON.stringify(count))
+    }
+    const getFromLocalStorageHandler = () => {
+        let valueAsString = localStorage.getItem('counterValue')
+        if (valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setCount(newValue)
+        }
+    }
+
+
     return (
         <div className={style.app}>
             <header className={style.appHeader}>
@@ -32,6 +53,9 @@ function App() {
                             count={count}
                             ResetCount={ResetCount}
                         />
+                    </div>
+                    <div className={style.buttonsCount}>
+                        <button onClick={setToLocalStorageHandler}>setToLocalStorageHandler</button>
                     </div>
                 </div>
             </header>
