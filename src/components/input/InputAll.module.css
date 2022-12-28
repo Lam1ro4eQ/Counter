@@ -1,3 +1,37 @@
 .errorInput {
+    display: inline-block;
     background-color: #ff7676;
+
+    outline:none;
+    outline: 0;
+    outline-offset: 0;
+    border: solid 5px #ff4b52;
+    border-radius: 5px;
+    height: 40px;
+    width: 100%;
+}
+.inputStyle {
+    outline: none;
+    padding: 0;
+    height: 40px;
+    display: inline-block;
+    width: 100%;
+
+    border: solid 5px deepskyblue;
+    border-radius: 5px;
+}
+input[type="number"] {
+    box-sizing: border-box;
+    vertical-align: top;
+    outline: none;
+    padding: 0;
+    height: 40px;
+    line-height: 40px;
+    text-indent: 10px;
+    display: inline-block;
+    width: 100%;
+    font-size: 14px;
+}
+h3 {
+    margin: 10px;
 }

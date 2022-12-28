@@ -9,54 +9,38 @@ import {CounterSettings, CounterSettingsType} from "./components/counetSettings/
 function App() {
     const [count, setCount] = useState<number>(0);
     const [maxCount, setMaxCount] = useState<number>(0);
+    const [minCount, setMinCount] = useState(0)
     const [editMode, setEditMode] = useState(false)
+    const [editValueMode, setEditValueMode] = useState(false)
     const Increment = () => {
         return (
             setCount(count + 1)
         )
     };
-    const ResetCount = () => {
-        setCount(0)
+    const ResetCount = (value: number) => {
+        setCount(minCount)
     }
 
-
-    // useEffect(() => {
-    //     setToLocalStorageHandler()
-    // }, [count])
-    //
-    // useEffect(() => {
-    //     getFromLocalStorageHandler()
-    // }, [])
-    //
-    // const setToLocalStorageHandler = () => {
-    //     sessionStorage.setItem('counterValue', JSON.stringify(count))
-    // }
-    // const getFromLocalStorageHandler = () => {
-    //     let valueAsString = localStorage.getItem('counterValue')
-    //     if (valueAsString) {
-    //         let newValue = JSON.parse(valueAsString)
-    //         setCount(newValue)
-    //     }
-    // }
-
-    const maxValueCounter = (e: ChangeEvent<HTMLInputElement>) => {
-        const maxValue = +e.currentTarget.value
-        setMaxCount(maxValue)
-    }
-    const startValueCounter = (e: ChangeEvent<HTMLInputElement>) => {
-        const startCounter = +e.currentTarget.value
-        setCount(startCounter)
-    }
-    const setCounterSettingsHandler = (value:CounterSettingsType) => {
+    const setCounterSettingsHandler = (value: CounterSettingsType) => {
         setCount(value.start)
+        setMinCount(value.start)
         setMaxCount(value.max)
         setEditMode(!editMode)
     }
     const setEditModeHandler = () => {
         setEditMode(true)
     }
+    const setEditValueModeHandler = () => {
+        setEditValueMode(true)
+    }
+    const notSetEditValueModeHandler = () => {
+        setEditValueMode(false)
+    }
     const isResetDisabled = count === 0 || editMode
     const incDisabled = count === maxCount || editMode
+    const className = count === maxCount || !count
+        ? style.redCounter
+        : style.whiteCounter
     return (
         <div className={style.app}>
             <header className={style.appHeader}>
@@ -64,10 +48,14 @@ function App() {
                     setEditMode={setEditModeHandler}
                     onChange={setCounterSettingsHandler}
                     editMode={editMode}
+                    setEditValueMode={setEditValueModeHandler}
+                    editValueMode={editValueMode}
+                    notSetEditValueModeHandler={notSetEditValueModeHandler}
                 />
                 <div className={style.monitor}>
                     <div className={style.counter}>
-                        <div className={`${count === maxCount ? style.redCounter : style.whiteCounter}`}>{count}</div>
+                        <div className={className}
+                        >{editValueMode ? count ? count : 'коунт фолс '  : count}</div>
                     </div>
                     <div className={style.buttonsCount}>
                         <ButtonAll
