@@ -10,9 +10,10 @@ type PropsType = {
     onChange: (value: CounterSettingsType) => void
     editMode: boolean
     ResetCount?: (value:number)=> void
-    setEditValueMode: () => void
-    editValueMode: boolean
-    notSetEditValueModeHandler: () => void
+    inputMaxCount: number
+    setInputMaxCount : (maxCount : number) => void
+    inputStartCount: number
+    setInputStartCount : (minCount : number) => void
 }
 
 export type CounterSettingsType = {
@@ -21,47 +22,41 @@ export type CounterSettingsType = {
 }
 
 export function CounterSettings(props: PropsType) {
-
-    const [inputCount, setInputCount] = useState<number>(5);
-    const [inputMaxCount, setInputMaxCount] = useState<number>(0);
-    const onClickHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onClickHandler = () => {
         const payload: CounterSettingsType = {
-            max: inputMaxCount,
-            start: inputCount,
+            max: props.inputMaxCount,
+            start: props.inputStartCount,
         }
         // payload.start && props.ResetCount(payload.start)
         props.onChange(payload)
-        props.setEditValueMode()
+
     }
     const onChangeMaxValueHandler = (value: number) => {
-        setInputMaxCount(value)
+        props.setInputMaxCount(value)
         !props.editMode && props.setEditMode()
-        props.editValueMode && props.notSetEditValueModeHandler()
     }
     const onChangeValueHandler = (value: number) => {
-        setInputCount(value)
+        props.setInputStartCount(value)
         !props.editMode && props.setEditMode()
-        props.editValueMode && props.notSetEditValueModeHandler()
     }
-
 
     return (<div className={style.monitor}>
             <div className={style.counter}>
                 <div>
                     <h3>max value:</h3>
                     <InputAll
-                        value={inputMaxCount}
+                        value={props.inputMaxCount}
                         type={'number'}
-                        className={inputMaxCount <= 0 || inputMaxCount <= inputCount ? InputAllStyle.errorInput : InputAllStyle.inputStyle}
+                        className={props.inputMaxCount < 0 || props.inputMaxCount < props.inputStartCount ? InputAllStyle.errorInput : InputAllStyle.inputStyle}
                         onChange={onChangeMaxValueHandler}
                     />
                 </div>
                 <div>
                     <h3>start value:</h3>
                     <InputAll
-                        value={inputCount}
+                        value={props.inputStartCount}
                         type={'number'}
-                        className={inputCount <= 0 ? InputAllStyle.errorInput : InputAllStyle.inputStyle}
+                        className={props.inputStartCount < 0 || props.inputMaxCount < props.inputStartCount ? InputAllStyle.errorInput : InputAllStyle.inputStyle}
                         onChange={onChangeValueHandler}
                     />
                 </div>
